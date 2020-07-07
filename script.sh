@@ -8,14 +8,13 @@ textfile=$(ls -1 *.txt)
 echo Current Folder: $DIR
 echo
 echo List of Files:
-file *
-echo
-echo
 for item in *
 do
 	filename=$item
-	echo "$filename" | cut -f 1 -d '.'
-	echo "${filename##*.}"
+	file=$(ls "$filename" | cut -f 1 -d '.')
+	mfs=$(du --apparent-size --block-size=1  "$filename" | awk '{ print $1}')
+	echo "${file} - ${filename##*.} - ${mfs}mb "
+
 done
 echo
 echo
